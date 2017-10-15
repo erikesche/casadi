@@ -100,11 +100,12 @@ namespace casadi {
             const MX& ii = t->dep_.back();
 
             // Skip if constant
-            if (ii.is_constant()) continue;
-
+            if (ii.is_constant()) {
+              t->dep_.pop_back();
+              continue;
+            }
             // Check if this is the only reference to the element
             if (ii.getCount()==1) {
-
               // Remove and add to stack
               deletion_stack.push(ii);
               t->dep_.pop_back();
